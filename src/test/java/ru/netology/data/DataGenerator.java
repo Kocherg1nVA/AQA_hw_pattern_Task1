@@ -29,7 +29,7 @@ public class DataGenerator {
                 "Екатеринбург", "Тюмень", "Ханты-Мансийск", "Салехард", "Челябинск", "Горно-Алтайск", "Кызыл", "Абакан",
                 "Барнаул", "Красноярск", "Иркутск", "Кемерово", "Новосибирск", "Омск", "Томск", "Улан-Удэ", "Якутск",
                 "Чита", "Петропавловск-Камчатский", "Владивосток", "Хабаровск", "Благовещенск", "Магадан",
-                "Южно-Сахалинск", "Биробиджан", "Анадырь", "Донецк", "Луганск", "Мелитополь", "Геническ"};
+                "Южно-Сахалинск", "Биробиджан", "Анадырь"};
         return cities[new Random().nextInt(cities.length)];
     }
 
@@ -38,8 +38,8 @@ public class DataGenerator {
         return faker.name().lastName() + " " + faker.name().firstName();
     }
 
-    public static String generatePhone(String locale) {
-        Faker faker = new Faker(new Locale(locale));
+    public static String generatePhone() {
+        Faker faker = new Faker();
         return faker.phoneNumber().phoneNumber();
     }
 
@@ -48,7 +48,7 @@ public class DataGenerator {
         }
 
         public static UserInfo generateUser(String locale) {
-            return new UserInfo(generateCity(), generateName(), generatePhone(locale));
+            return new UserInfo(generateCity(), generateName(), generatePhone());
         }
     }
 

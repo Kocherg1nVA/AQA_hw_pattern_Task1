@@ -1,6 +1,5 @@
 package ru.netology.test;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,49 +18,44 @@ public class PlanDeliveryTest {
     }
 
     @Test
-    public void shouldSuccessfulPlanMeeting(){ //visible
-        $("[data-test-id='city'] input").setValue(DataGenerator.generateCity());
-        $("[data-test-id='date'] input").press(Keys.chord(Keys.SHIFT,
-                Keys.HOME), Keys.DELETE).setValue(DataGenerator.generateDate(5));
-        $("[data-test-id='name'] input").setValue(DataGenerator.generateName());
-        $("[data-test-id='phone'] input").setValue(DataGenerator.generatePhone("#"));
-        $("[data-test-id='agreement'].checkbox").click();
-        $$("button.button").find(Condition.text("Запланировать")).click();
-        $("[data-test-id='success-notification'] .notification__title")
-                .shouldHave(Condition.text("Успешно!")).shouldBe(Condition.visible);
-        $("[data-test-id='success-notification'] .notification__content")
-                .shouldHave(Condition.text("Встреча успешно запланирована на "
-                        + DataGenerator.generateDate(5))).shouldBe(Condition.visible);
-    }
+    public void shouldSuccessfulPlanMeeting(){
+        var firstMeetingDay = DataGenerator.generateDate(5);
+        var secondMeetingDay = DataGenerator.generateDate(4);
+        var getCity = DataGenerator.generateCity();
+        var getName = DataGenerator.generateName();
+        var getPhone = DataGenerator.generatePhone();
 
-    @Test
-    public void shouldSuccessfulRePlanMeeting(){
-        $("[data-test-id='city'] input").setValue(DataGenerator.generateCity());
+        $("[data-test-id='city'] input").setValue(getCity);
         $("[data-test-id='date'] input").press(Keys.chord(Keys.SHIFT,
-                Keys.HOME), Keys.DELETE).setValue(DataGenerator.generateDate(5));
-        $("[data-test-id='name'] input").setValue(DataGenerator.generateName());
-        $("[data-test-id='phone'] input").setValue(DataGenerator.generatePhone("#"));
+                Keys.HOME), Keys.DELETE).setValue(firstMeetingDay);
+        $("[data-test-id='name'] input").setValue(getName);
+        $("[data-test-id='phone'] input").setValue(getPhone);
         $("[data-test-id='agreement'].checkbox").click();
         $$("button.button").find(Condition.text("Запланировать")).click();
         $("[data-test-id='success-notification'] .notification__title")
-                .shouldHave(Condition.text("Успешно!")).shouldBe(Condition.visible);
+                .shouldHave(Condition.text("Успешно!"))
+                .shouldBe(Condition.visible);
         $("[data-test-id='success-notification'] .notification__content")
                 .shouldHave(Condition.text("Встреча успешно запланирована на "
-                        + DataGenerator.generateDate(5))).shouldBe(Condition.visible);
-        //rePlan date
+                        + firstMeetingDay))
+                .shouldBe(Condition.visible);
+        //replan meeting day
         $("[data-test-id='date'] input").press(Keys.chord(Keys.SHIFT,
-                Keys.HOME), Keys.DELETE).setValue(DataGenerator.generateDate(4));
+                Keys.HOME), Keys.DELETE).setValue(secondMeetingDay);
         $$("button.button").find(Condition.text("Запланировать")).click();
         $("[data-test-id='replan-notification'] .notification__title")
-                .shouldHave(Condition.text("Необходимо подтверждение")).shouldBe(Condition.visible);
+                .shouldHave(Condition.text("Необходимо подтверждение"))
+                .shouldBe(Condition.visible);
         $("[data-test-id='replan-notification'] .notification__content")
                 .shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. " +
-                        "Перепланировать?")).shouldBe(Condition.visible);
+                        "Перепланировать?"))
+                .shouldBe(Condition.visible);
         $$("button.button").find(Condition.text("Перепланировать")).click();
         $("[data-test-id='success-notification'] .notification__title")
-                .shouldHave(Condition.text("Успешно!")).shouldBe(Condition.visible);
+                .shouldHave(Condition.text("Успешно!"))
+                .shouldBe(Condition.visible);
         $("[data-test-id='success-notification'] .notification__content")
-                .shouldHave(Condition.text("Встреча успешно запланирована на "
-                        + DataGenerator.generateDate(4))).shouldBe(Condition.visible);
+                .shouldHave(Condition.text("Встреча успешно запланирована на " + secondMeetingDay))
+                .shouldBe(Condition.visible);
     }
 }
