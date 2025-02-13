@@ -20,11 +20,11 @@ public class PlanDeliveryTest {
 
     @Test
     public void shouldSuccessfulPlanMeeting(){ //visible
-        $("[data-test-id='city'].input [placeholder='Город']").setValue(DataGenerator.generateCity());
-        $("[data-test-id='date'] .input [placeholder='Дата встречи']").press(Keys.chord(Keys.SHIFT,
+        $("[data-test-id='city'] input").setValue(DataGenerator.generateCity());
+        $("[data-test-id='date'] input").press(Keys.chord(Keys.SHIFT,
                 Keys.HOME), Keys.DELETE).setValue(DataGenerator.generateDate(5));
-        $("[data-test-id='name'].input [name='name']").setValue(DataGenerator.generateName());
-        $("[data-test-id='phone'].input [name='phone']").setValue(DataGenerator.generatePhone("#"));
+        $("[data-test-id='name'] input").setValue(DataGenerator.generateName());
+        $("[data-test-id='phone'] input").setValue(DataGenerator.generatePhone("#"));
         $("[data-test-id='agreement'].checkbox").click();
         $$("button.button").find(Condition.text("Запланировать")).click();
         $("[data-test-id='success-notification'] .notification__title")
@@ -36,11 +36,11 @@ public class PlanDeliveryTest {
 
     @Test
     public void shouldSuccessfulRePlanMeeting(){
-        $("[data-test-id='city'].input [placeholder='Город']").setValue(DataGenerator.generateCity());
-        $("[data-test-id='date'] .input [placeholder='Дата встречи']").press(Keys.chord(Keys.SHIFT,
+        $("[data-test-id='city'] input").setValue(DataGenerator.generateCity());
+        $("[data-test-id='date'] input").press(Keys.chord(Keys.SHIFT,
                 Keys.HOME), Keys.DELETE).setValue(DataGenerator.generateDate(5));
-        $("[data-test-id='name'].input [name='name']").setValue(DataGenerator.generateName());
-        $("[data-test-id='phone'].input [name='phone']").setValue(DataGenerator.generatePhone("#"));
+        $("[data-test-id='name'] input").setValue(DataGenerator.generateName());
+        $("[data-test-id='phone'] input").setValue(DataGenerator.generatePhone("#"));
         $("[data-test-id='agreement'].checkbox").click();
         $$("button.button").find(Condition.text("Запланировать")).click();
         $("[data-test-id='success-notification'] .notification__title")
@@ -49,7 +49,7 @@ public class PlanDeliveryTest {
                 .shouldHave(Condition.text("Встреча успешно запланирована на "
                         + DataGenerator.generateDate(5))).shouldBe(Condition.visible);
         //rePlan date
-        $("[data-test-id='date'] .input [placeholder='Дата встречи']").press(Keys.chord(Keys.SHIFT,
+        $("[data-test-id='date'] input").press(Keys.chord(Keys.SHIFT,
                 Keys.HOME), Keys.DELETE).setValue(DataGenerator.generateDate(4));
         $$("button.button").find(Condition.text("Запланировать")).click();
         $("[data-test-id='replan-notification'] .notification__title")
