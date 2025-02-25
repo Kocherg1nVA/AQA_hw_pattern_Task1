@@ -36,8 +36,7 @@ public class PlanDeliveryTest {
                 .shouldHave(Condition.text("Успешно!"))
                 .shouldBe(Condition.visible);
         $("[data-test-id='success-notification'] .notification__content")
-                .shouldHave(Condition.text("Встреча успешно запланирована на "
-                        + firstMeetingDay))
+                .shouldHave(Condition.text("Встреча успешно запланирована на " + firstMeetingDay))
                 .shouldBe(Condition.visible);
         //replan meeting day
         $("[data-test-id='date'] input").press(Keys.chord(Keys.SHIFT,
